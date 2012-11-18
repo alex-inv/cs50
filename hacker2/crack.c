@@ -1,7 +1,7 @@
 #define _XOPEN_SOURCE
 #include <cs50.h>
-#include <stdio.h>
 #include <ctype.h>
+#include <stdio.h>
 #include <string.h>
 #include <time.h>
 #include <unistd.h>
@@ -32,9 +32,10 @@ bool dict_attack(const char *passwd, const char *salt)
     FILE *f;
     
     // Prepare a dictionary
-    f = fopen("/usr/share/dict/words", "r");    // Hard-coded right now
+    f = fopen("/usr/share/dict/words", "r");
     
-    if (!f) {
+    if (!f)
+    {
         printf("Error opening dictionary file.\n");
         
         return false;
@@ -56,8 +57,8 @@ bool dict_attack(const char *passwd, const char *salt)
 // Perform a brute-force attack on a password
 bool brute_force(char *passwd, const char *salt)
 {   
-    //char arr_chars[] = {"0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz !\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~"};
     char arr_chars[] = {"0123456789abcdefghijklmnopqrstuvwxyz"};
+    //char arr_chars[] = {"0123456789AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz !\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~"};
     
     int arr_length = strlen(arr_chars);
     
@@ -70,6 +71,7 @@ bool brute_force(char *passwd, const char *salt)
     for (int max_chars = 0; max_chars < CONST_MAX_PASSWD_SIZE; max_chars++)
     {
         printf("Trying length %d\n", max_chars + 1);
+        
         bool loop_completed = false;
         
         // Initialize the word
@@ -89,17 +91,12 @@ bool brute_force(char *passwd, const char *salt)
         {
             // Try currend word
             if (try_passwd(cur_word, passwd, salt))
-            {
-                //free(arr_chars);
-                
                 return true;
-            }
         
             // One iteration of brute-force
             bool shift = true;
             
             for (int cur_char = 0; cur_char <= max_chars; cur_char++)
-            {
                 // If shift - change character
                 if (shift)
                 {
@@ -108,9 +105,7 @@ bool brute_force(char *passwd, const char *salt)
                     {
                         // If last symbol - loop is over
                         if (cur_char == max_chars)
-                        {
                             loop_completed = true;
-                        }
                         // Change to first symbol again
                         else
                         {
@@ -125,7 +120,6 @@ bool brute_force(char *passwd, const char *salt)
                         shift = false;
                     }
                 }
-            }
         }
     }
     
