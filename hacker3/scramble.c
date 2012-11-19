@@ -33,6 +33,36 @@
 // http://www.becomeawordgameexpert.com/wordlists.htm
 #define DICTIONARY "words"
 
+// scores for each letter
+int scores[] = {
+    1       // a
+    ,4      // b
+    ,4      // c
+    ,2      // d
+    ,1      // e
+    ,4      // f
+    ,3      // g
+    ,3      // h
+    ,1      // i
+    ,10     // j
+    ,5      // k
+    ,2      // l
+    ,4      // m
+    ,2      // n
+    ,1      // o
+    ,4      // p
+    ,10     // q
+    ,1      // r
+    ,1      // s
+    ,1      // t
+    ,2      // u
+    ,5      // v
+    ,4      // w
+    ,8      // x
+    ,3      // y
+    ,10     // z
+};
+
 // for logging
 FILE* log;
 
@@ -69,6 +99,8 @@ void    initialize(void);
 bool    load(string s);
 bool    lookup(string s);
 void    scramble(void);
+void    inspiration(void);
+int     word_score(string str);
 
 // This is Scramble.
 int main(int argc, string argv[])
@@ -176,12 +208,16 @@ int main(int argc, string argv[])
         // check whether to scramble grid
         if (strcmp(s, "SCRAMBLE") == 0)
             scramble();
+            
+        // check whether to launch helper
+        if (strcmp(s, "INSPIRATION") == 0)
+            inspiration();
 
         // or to look for word on grid and in dictionary
         else
         {
             if (find(s) && lookup(s))
-                score += strlen(s);
+                score += word_score(s);
         }
     }
 
@@ -209,6 +245,16 @@ string to_upper(string str)
         str[i] = toupper(str[i]);
         
     return str;
+}
+
+int word_score(string str)
+{
+    int result = 0;
+
+    for (int i = 0, n = strlen(str); i < n; i++)
+        result += scores[str[i] - 'A'];
+        
+    return result;
 }
 
 /**
@@ -448,4 +494,9 @@ void scramble(void)
     for (int row = 0; row < DIMENSION; row++)
         for(int col = 0; col < DIMENSION; col++)
             grid[row][col] = grid_scrambled[row][col];           
+}
+
+void inspiration(void)
+{
+    // TODO
 }
