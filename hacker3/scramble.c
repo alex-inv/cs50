@@ -29,6 +29,9 @@
 // maximum number of letters in any word
 #define LETTERS 29
 
+// maximum number of inspiration hints
+#define HINTS 3
+
 // default dictionary
 // http://www.becomeawordgameexpert.com/wordlists.htm
 #define DICTIONARY "words"
@@ -89,17 +92,27 @@ struct
 }
 dictionary;
 
+// defines an inspiration record
+typedef struct
+{
+    bool inspired_check;
+    int count;
+    
+    char words[HINTS][LETTERS + 1];
+}
+inspiration_record;
+
 // prototypes
 void    clear(void);
 string  to_upper(string str);
 bool    crawl(string letters, int x, int y);
-void    draw(void);
+void    draw(inspiration_record *p_rec);
 bool    find(string s);
 void    initialize(void);
 bool    load(string s);
 bool    lookup(string s);
 void    scramble(void);
-void    inspiration(void);
+void    inspiration(inspiration_record *p_rec);
 int     word_score(string str);
 
 // This is Scramble.
@@ -143,6 +156,9 @@ int main(int argc, string argv[])
 
     // initialize user's score
     int score = 0;
+    
+    // initialize inspiration record
+    inspiration_record insp_rec;
 
     // calculate time of game's end
     int end = time(NULL) + DURATION;
@@ -159,10 +175,10 @@ int main(int argc, string argv[])
     while (true)
     {
         // clear the screen
-        clear();
+        //clear();
 
         // draw the current state of the grid
-        draw();
+        draw(&insp_rec);
 
         // log board
         for (int row = 0; row < DIMENSION; row++)
@@ -211,7 +227,7 @@ int main(int argc, string argv[])
             
         // check whether to launch helper
         if (strcmp(s, "INSPIRATION") == 0)
-            inspiration();
+            inspiration(&insp_rec);
 
         // or to look for word on grid and in dictionary
         else
@@ -306,13 +322,32 @@ bool crawl(string letters, int x, int y)
 /** 
  * Prints the grid in its current state.
  */
-void draw(void)
+void draw(inspiration_record *p_rec)
 {
     for (int row = 0; row < DIMENSION; row++)
     {
         for (int col = 0; col < DIMENSION; col++)
             printf("%c", grid[row][col]);
+            
         printf("\n");
+    }
+    
+    // Check for the user hints
+    if (p_rec->inspired_check)
+    {
+        printf("\n");
+    
+        if (p_rec->count > 0)
+        {
+            printf("You are inspired! Some words for you.\n");
+            
+            for (int i = 0; i < p_rec->count; i++)
+                printf("%s\n", p_rec->words[i]);
+        }
+        else
+            printf("You are NOT inspired.\n");
+        
+        p_rec->inspired_check = false;
     }
 }
 
@@ -425,8 +460,8 @@ bool load(string s)
         for (int i = 0, n = strlen(buffer); i < n; i++)
             buffer[i] = toupper(buffer[i]);
 
-        // ignore SCRAMBLE
-        if (strcmp(buffer, "SCRAMBLE") == 0) 
+        // ignore SCRAMBLE and INSPIRATION
+        if (strcmp(buffer, "SCRAMBLE") == 0 || strcmp(buffer, "INSPIRATION") == 0) 
             continue;
 
         // copy word into dictionary
@@ -496,7 +531,50 @@ void scramble(void)
             grid[row][col] = grid_scrambled[row][col];           
 }
 
-void inspiration(void)
-{
-    // TODO
+/**
+ * Prints a hint to user - a 3, 4 and 5 letter words which are on the grid
+ */
+void inspiration(inspiration_record *p_rec)
+{   
+    p_rec->count = 0;
+    
+    // Loop for control of current hint word length
+    for (int word_length = 3; word_length < 6; word_length++)
+    {
+        for (int i = 0; i < dictionary.size; i++)
+        {
+            if (strlen(dictionary.words[i].letters) == word_length
+                && !(dictionary.words[i].found)
+                    && find(dictionary.words[i].letters))
+            {
+                strcpy(p_rec->words[p_rec->count++], dictionary.words[i].letters);
+                
+                break;
+            }
+        }
+    }
+    
+    p_rec->inspired_check = true;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
