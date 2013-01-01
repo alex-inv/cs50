@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     
     int factor = atoi(argv[1]);
     
-    if (factor <= 1 || factor > 100)
+    if (factor < 1 || factor > 100)
     {
         printf("Factor must be in range 1..100!\n");
         return 1;
