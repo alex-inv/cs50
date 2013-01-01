@@ -1,0 +1,19 @@
+0.  GIF supports 256 colors, all others 3 formats can support 16777216 (2^24) colors.
+1.  Only GIF file format supports animation (from the given list of formats).
+2.  Lossy compression encodes data by discarding some portions of it, so the original file is lost. Lossless compression preserves the original data.
+3.  JPEG is the only lossy-compressed file format (from the given list of formats).
+4.  When a file is deleted on a FAT file system, it's data is never lost - the file system only renames the file, and marks its clusters as free ones.
+5.  The most optimal ways are to download a free file sanitizer, or to use a linux "dd" command.
+6.  stdint.h is a header file of a standard C library, which defines several integer datatypes and some macros.
+7.  These datatype are fixed-length - that means on every architecture their size is equal - which is essential for portability of programs reading and writing structures (like copy.c)
+8.  BYTE is 1 byte, WORD is 2 bytes, DWORD and LONG are 4 bytes.
+9.  In ASCII - "BM".
+10. bfSize specifies the size of a whole bitmap file; biSize specifies only the size of a BITMAPINFOHEADER structure.
+11. It means that a bmp file has its rows stored in top-down order. Actual height is then abs(biHeight).
+12. A field called biBitCount.
+13. For example, there is no more free space in a filesystem to create a file; or the user doesn't have permissions to create it.
+14. Third argument to fread specifies the number of reads from a stream; we need only one reading of a structure at a time.
+15. 3 bytes of padding.
+16. fseek() alters the current position in an opened file - for example, it can shift position to beginning, end, or two bytes away from current position.
+17. SEEK_CUR is a constant value defined in stdio.h, and is an argument to fseek() - it means "Seek from the current location" of an opened file.
+18. Fozzie Bear
