@@ -1,0 +1,14 @@
+
+MISSPELLED WORDS
+
+Wiggum
+
+WORDS MISSPELLED:     1
+WORDS IN DICTIONARY:  143091
+WORDS IN TEXT:        20
+TIME IN load:         0.06
+TIME IN check:        0.00
+TIME IN size:         0.00
+TIME IN unload:       0.01
+TIME IN TOTAL:        0.07
+

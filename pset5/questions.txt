@@ -1,0 +1,11 @@
+0.  A lung disease caused by the inhalation of very fine silica dust, causing inflammation in the lungs. The word "silicosis" also describes this illness, but it's not so funny.
+1.  It returns resource usage measures for a process(es), like CPU time and memory used.
+2.  There are 16 members in a structure.
+3.  If we pass them by value, whole two structures will be copied into 'calculate' - that's a waisting of time and resources.
+4.  After loading a textfile and a dictionary, main() function starts reading a text symbol-by-symbol, with a goal of constructing separate words. A word is completed when one or more alphabetic symbols are read, and we encounted a non-alphanumeric character (like spacebar, or newline). Then we check our word for misspellings, reset the word index to zero, and continue the symbol reading loop. If we encounter a digit, or a string tends to be too long, we traverse this word in the text, but we won't check it for misspellings.
+5.  There are several problems with fscanf - first, you must allocate a memory for a string before reading it from file, and there are no limits of a length of a word in a text file. Also you can't write program logic for skipping alphanumeric words, like this implementation of speller has. Overall, this approach gives us much less flexibility.
+6.  Those parameters are never intented to be modified in the functions, so we wrote an other layer of ensuring this behavior.
+7.  TODO
+8.  TODO
+9.  TODO
+10. TODO
