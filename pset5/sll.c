@@ -19,8 +19,7 @@ node *new_node(char *val)
 {
     node *result = (node *)malloc(sizeof(node));
     
-    result->value = (char *)malloc((strlen(val) + 1) * sizeof(char));
-    strncpy(result->value, val, strlen(val) + 1);
+    strncpy(result->value, val, strlen(val) + 1);   // Copy the string
     result->next = NULL;
     
     return result;
@@ -67,7 +66,6 @@ void node_free(node *list)
     {
         node* next = t->next;
         
-        free(t->value);
         free(t);
         
         t = next;

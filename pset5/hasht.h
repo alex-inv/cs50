@@ -6,20 +6,14 @@
  
 #ifndef HASHT_H
 #define HASHT_H
- 
+
+#include "shared.h"
 #include "sll.h"
 
-//#define HASH_TABLE_SIZE 143093
-//#define HASH_TABLE_SIZE 76801
-#define HASH_TABLE_SIZE 286199
- 
 typedef struct
 {
    // An array of singly-linked lists
-   node **values;
-    
-   // The size of a table
-   unsigned int table_size;
+   node *values[HASH_TABLE_SIZE];
     
    // The size of a dictionary
    unsigned int dict_size;
@@ -29,7 +23,7 @@ hash_table;
 /**
 * Initializes a hash-table with a given size
 */
-bool hasht_init(hash_table *tbl, unsigned int size);
+bool hasht_init(hash_table *tbl);
  
 /**
 * Frees a hash-table

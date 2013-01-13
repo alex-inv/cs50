@@ -37,7 +37,7 @@ bool load(const char* dictionary)
         return false;
     
     // Initialize the hash table
-    hasht_init(&dict, HASH_TABLE_SIZE);
+    hasht_init(&dict);
     
     // Load words from dictionary
     char buffer[LENGTH + 2];

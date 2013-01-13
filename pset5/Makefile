@@ -7,20 +7,22 @@
 
 # compiler to use
 CC = clang
+# CC = gcc
 
 # flags to pass compiler
-# CFLAGS = -ggdb -O0 -Qunused-arguments -std=c99 -Wall -Werror
-CFLAGS = -O3 -Qunused-arguments -std=c99 -Wall -Werror
+CFLAGS = -ggdb -O3 -Qunused-arguments -std=c99 -Wall -Werror
+# CFLAGS = -O3 -Qunused-arguments -std=c99 -Wall -Werror
+# CFLAGS = -o3 -std=c99 -Wall -pg
 
 # name for executable
 EXE = speller
 
 # space-separated list of header files
-HDRS = dictionary.h hasht.h sll.h
+HDRS = dictionary.h hasht.h sll.h shared.h
 
 # space-separated list of libraries, if any,
 # each of which should be prefixed with -l
-LIBS =
+LIBS = 
 
 # space-separated list of source files
 SRCS = speller.c dictionary.c hasht.c sll.c

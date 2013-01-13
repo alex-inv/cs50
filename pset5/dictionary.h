@@ -12,6 +12,7 @@
 
 #include <stdbool.h>
 
+#include "shared.h"
 #include "hasht.h"
 
 // maximum length for a word

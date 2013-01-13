@@ -30,16 +30,8 @@ unsigned long hash(const char *str)
 /**
 * Initializes a hash-table with a given size
 */
-bool hasht_init(hash_table *tbl, unsigned int size)
+bool hasht_init(hash_table *tbl)
 {
-    // Allocate an array of given size for nodes
-    tbl->values = (node **)calloc(size, sizeof(node *));
-    
-    if (tbl->values == NULL)
-        return false;
-    
-    // Set the sizes correctly
-    tbl->table_size = size;
     tbl->dict_size = 0;
     
     return true;
@@ -50,10 +42,8 @@ bool hasht_init(hash_table *tbl, unsigned int size)
 */
 bool hasht_free(hash_table *tbl)
 {
-    for (int i = 0; i < tbl->table_size; i++)
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
         node_free(tbl->values[i]);
-        
-    free(tbl->values);
     
     return true;
 }
@@ -64,7 +54,7 @@ bool hasht_free(hash_table *tbl)
 bool hasht_append(hash_table *tbl, char *str)
 {
     // Calculate the correct hash
-    unsigned int hash_value = hash(str) % tbl->table_size;
+    unsigned int hash_value = hash(str) % HASH_TABLE_SIZE;
     
     // Append the string
     node_add(&(tbl->values[hash_value]), str);
@@ -80,7 +70,7 @@ bool hasht_append(hash_table *tbl, char *str)
 bool hasht_lookup(hash_table *tbl, const char *str)
 {   
     // Calculate the correct hash
-    unsigned int hash_value = hash(str) % tbl->table_size;
+    unsigned int hash_value = hash(str) % HASH_TABLE_SIZE;
     
     // Find the string
     return node_lookup(tbl->values[hash_value], str);
@@ -96,7 +86,7 @@ void hasht_print(hash_table *tbl)
     int elem_count = 0;
     int bucket_count = 0;
 
-    for (int i = 0; i < tbl->table_size; i++)
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
     {
         int count = node_print(fw, i, tbl->values[i]);
         
@@ -105,11 +95,11 @@ void hasht_print(hash_table *tbl)
     }
     
     fprintf(fw, "\nStatistics:\n");
-    fprintf(fw, "Table has %d buckets\n", tbl->table_size);
+    fprintf(fw, "Table has %d buckets\n", HASH_TABLE_SIZE);
     fprintf(fw, "Table has %d elements\n", elem_count);
-    fprintf(fw, "Load factor is %.2f\n", (float)elem_count / tbl->table_size);
+    fprintf(fw, "Load factor is %.2f\n", (float)elem_count / HASH_TABLE_SIZE);
     fprintf(fw, "Table has %d filled buckets\n", bucket_count);
-    fprintf(fw, "%% bucket used is %.2f\n", (float)bucket_count / tbl->table_size * 100);
+    fprintf(fw, "%% bucket used is %.2f\n", (float)bucket_count / HASH_TABLE_SIZE * 100);
     
     fclose(fw);
 }

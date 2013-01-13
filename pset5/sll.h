@@ -7,10 +7,12 @@
 #ifndef SLL_H
 #define SLL_H
 
+#include "shared.h"
+
 typedef struct node
 {
     // The string to store in the node
-    char *value;
+    char value[LENGTH + 1];
 
     // The link to the next node in the list
     struct node* next;
