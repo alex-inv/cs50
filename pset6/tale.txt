@@ -1,0 +1,17 @@
+Once upon a time, there were four little pigs who lived in a four-byte
+ASCII file.  The first little piggy was an H.  The second little piggy
+was a T.  The third little piggy was an H.  And the fourth little
+piggy was a newline.
+
+Presently came along David A. Huffman, and made a tree out of the
+piggies' frequencies, per the figure below.
+
+           4
+       0 /   \
+        /     \
+       2       \ 1
+    0 /  \ 1    \
+     /    \      \
+    1      1      2
+   \n      T      H
+
