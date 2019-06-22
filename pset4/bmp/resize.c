@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
     }
 
     // open input file 
-    FILE* inptr = fopen(infile, "r");
+    FILE* inptr = fopen(infile, "rb");
     if (inptr == NULL)
     {
         printf("Could not open %s.\n", infile);
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
     }
 
     // open output file
-    FILE* outptr = fopen(outfile, "w");
+    FILE* outptr = fopen(outfile, "wb");
     if (outptr == NULL)
     {
         fclose(inptr);
